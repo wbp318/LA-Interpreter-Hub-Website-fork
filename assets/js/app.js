@@ -29,3 +29,12 @@ if(form)form.addEventListener('submit',e=>{e.preventDefault();const st=$('#conta
 $$('.checklist input[type=checkbox]').forEach((cb,i)=>{const k='hub-check-'+i;try{cb.checked=localStorage.getItem(k)==='1'}catch(e){}cb.addEventListener('change',()=>{try{localStorage.setItem(k,cb.checked?'1':'0')}catch(e){}})});
 const pr=$('#print-btn');if(pr)pr.addEventListener('click',()=>window.print());
 const rs=$('#reset-btn');if(rs)rs.addEventListener('click',()=>$$('.checklist input').forEach(cb=>{cb.checked=false;cb.dispatchEvent(new Event('change'))}));
+
+// Theme toggle: follows the system until the visitor picks one (remembered in this browser)
+(()=>{const nav=document.querySelector('nav');if(!nav)return;const mq=matchMedia('(prefers-color-scheme: dark)');
+const eff=()=>document.documentElement.dataset.theme||(mq.matches?'dark':'light');
+const b=document.createElement('button');b.type='button';b.className='theme-toggle';
+const paint=()=>{const d=eff()==='dark';b.textContent=d?'☀ Light':'☾ Dark';b.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode')};
+b.addEventListener('click',()=>{const n=eff()==='dark'?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem('hub-theme',n)}catch(e){}paint();document.dispatchEvent(new Event('hubthemechange'))});
+mq.addEventListener('change',()=>{paint();document.dispatchEvent(new Event('hubthemechange'))});
+paint();nav.appendChild(b)})();
