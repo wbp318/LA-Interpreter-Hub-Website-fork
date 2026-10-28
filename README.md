@@ -12,8 +12,8 @@ This website is currently under development.
 - **Assignment guide** (`workflow.html`) – lifecycle and turn-taking charts, printable pre-assignment checklist
 - **Community** – discussion board preview (sample content only)
 - **News & events** – placeholder layout (nothing scheduled or published yet)
-- **Contact form** – not connected to an inbox yet; set `contactEmail` in `data.js` to enable it
-- **Hub Assistant** – built-in helper (`assistant.js`) for glossary lookups, navigation, and quick translations
+- **Contact form** – not connected to an inbox yet; set `contactEmail` in `assets/js/data.js` to enable it
+- **Hub Assistant** – built-in helper (`assets/js/assistant.js`) for glossary lookups, navigation, and quick translations
 
 ## Site map
 
@@ -33,17 +33,43 @@ A -.-> ET
 A -.-> W
 ```
 
+## Repo layout
+
+```
+index.html, ethics.html, workflow.html   pages
+assets/css/styles.css                    shared styles
+assets/js/                               data, app, assistant, translator, charts
+assets/img/                              banner image
+scripts/check.mjs                        site checks run by CI
+.github/workflows/ci.yml                 GitHub Actions
+```
+
 ## How the code fits together
 
 ```mermaid
 flowchart LR
-D["data.js<br/>glossary + settings"] --> APP["app.js<br/>menu, filters, glossary, forms"]
-D --> AS["assistant.js<br/>lookups + translation"]
+D["assets/js/data.js<br/>glossary + settings"] --> APP["app.js<br/>menu, filters, glossary, forms"]
+D --> AS["assistant.js<br/>lookups + chat UI"]
+AS --> TR["translator.js<br/>client-side router"]
 CH["charts.js<br/>Mermaid via CDN"] --> P["ethics.html<br/>workflow.html"]
-ST["styles.css"] --> ALL["All pages"]
-AS -->|"fallback"| MM["MyMemory free API"]
-AS -->|"preferred"| BR["Browser on-device Translator"]
+ST["assets/css/styles.css"] --> ALL["All pages"]
 ```
+
+## Translation router
+
+`translator.js` tries each engine in order and tells the user which one answered.
+
+```mermaid
+flowchart TD
+Q["translate text"] --> C{"Chrome on-device<br/>translator ready?"}
+C -- Yes --> R1["Translate on device<br/>nothing downloaded or sent"]
+C -- No --> O{"Offline translator<br/>enabled by user?"}
+O -- Yes --> R2["OPUS-MT in browser<br/>~75 MB per pair, cached<br/>nothing sent"]
+O -- No --> M["MyMemory free web API<br/>text is sent to a third party"]
+R2 -- "fails" --> M
+```
+
+OPUS-MT covers English with Spanish, French, and Vietnamese (both directions) through Transformers.js. Users opt in from the assistant ("enable offline translator").
 
 ## Checks
 
@@ -52,6 +78,6 @@ AS -->|"preferred"| BR["Browser on-device Translator"]
 ## Notes
 
 - Static site: serve the folder (for example `python -m http.server`) and open `index.html`.
-- Glossary data lives in `data.js`. Please have fluent speakers verify terms before relying on them.
-- Mermaid charts load from the jsDelivr CDN (`charts.js`); each has a text alternative.
-- The assistant is rule-based, not an LLM. Quick translations use the browser's on-device Translator when available, otherwise the free MyMemory service (text is sent to it). Do not enter confidential information.
+- Glossary data lives in `assets/js/data.js`. Please have fluent speakers verify terms before relying on them.
+- Mermaid charts load from the jsDelivr CDN (`assets/js/charts.js`); each has a text alternative.
+- The assistant is rule-based, not an LLM. Translations go through the router above: Chrome's on-device translator first, then opt-in OPUS-MT, then the free MyMemory service (text is sent to it). Machine translation is a quick aid, not a certified translation. Do not enter confidential information.

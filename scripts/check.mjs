@@ -4,7 +4,8 @@ import {execFileSync} from 'node:child_process';
 import vm from 'node:vm';
 const errors=[];
 const files=readdirSync('.');
-for(const f of files.filter(f=>f.endsWith('.js'))){
+const jsFiles=readdirSync('assets/js').map(f=>'assets/js/'+f);
+for(const f of jsFiles){
   try{execFileSync(process.execPath,['--check',f],{stdio:'pipe'})}catch(e){errors.push(`${f}: syntax error\n${e.stderr}`)}
 }
 for(const f of files.filter(f=>f.endsWith('.html'))){
@@ -20,9 +21,9 @@ for(const f of files.filter(f=>f.endsWith('.html'))){
   }
   for(const m of html.matchAll(/href="#([^"]+)"/g))if(m[1]&&!ids.includes(m[1]))errors.push(`${f}: missing in-page anchor "#${m[1]}"`);
 }
-const ctx={window:{}};vm.createContext(ctx);vm.runInContext(readFileSync('data.js','utf8'),ctx);
+const ctx={window:{}};vm.createContext(ctx);vm.runInContext(readFileSync('assets/js/data.js','utf8'),ctx);
 const g=ctx.window.HUB_DATA?.glossary;
-if(!Array.isArray(g)||!g.length)errors.push('data.js: glossary missing');
-else g.forEach((t,i)=>{if(!t.en||!t.domain||!(t.es||t.vi||t.fr))errors.push(`data.js: glossary[${i}] needs en, domain, and a translation`)});
+if(!Array.isArray(g)||!g.length)errors.push('assets/js/data.js: glossary missing');
+else g.forEach((t,i)=>{if(!t.en||!t.domain||!(t.es||t.vi||t.fr))errors.push(`assets/js/data.js: glossary[${i}] needs en, domain, and a translation`)});
 if(errors.length){console.error(errors.join('\n'));process.exit(1)}
 console.log(`OK: ${files.filter(f=>f.endsWith('.html')).length} pages, ${g.length} glossary terms`);

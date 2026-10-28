@@ -1,7 +1,7 @@
 // Hub Assistant: a self-contained, rule-based helper. No data leaves the browser.
 (()=>{
 const D=window.HUB_DATA||{glossary:[]};
-const base=document.currentScript&&document.currentScript.src?new URL('.',document.currentScript.src).href:'';
+const base=document.currentScript&&document.currentScript.src?new URL('../../',document.currentScript.src).href:'';
 const u=p=>base+p;
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
@@ -19,18 +19,13 @@ const topics=[
 
 const LANGS={english:'en',spanish:'es',vietnamese:'vi',french:'fr'};
 let tNotice=false;
-async function translate(text,from,to){
- if('Translator' in self){try{const av=await Translator.availability({sourceLanguage:from,targetLanguage:to});if(av==='available'){const t=await Translator.create({sourceLanguage:from,targetLanguage:to});return{text:await t.translate(text),via:'your browser (on-device, nothing sent)'}}}catch(e){}}
- const r=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(text)+'&langpair='+from+'|'+to);
- if(!r.ok)throw new Error('http '+r.status);const j=await r.json();const out=j&&j.responseData&&j.responseData.translatedText;if(!out||j.responseStatus!=200)throw new Error('no result');
- return{text:out,via:'MyMemory free service (text was sent to it)'}}
 function parseTranslate(q){
  let m=q.match(/^translate\s+(.+?)\s+(?:to|into)\s+(english|spanish|vietnamese|french)$/i);
  if(m)return{text:m[1].replace(/^["“]|["”]$/g,''),from:'en',to:LANGS[m[2].toLowerCase()]};
  m=q.match(/^translate\s+(.+?)\s+from\s+(spanish|vietnamese|french)$/i);
  if(m)return{text:m[1].replace(/^["“]|["”]$/g,''),from:LANGS[m[2].toLowerCase()],to:'en'};
  return null}
-const chips=['translate good morning to Spanish','Translate a term','Pre-assignment checklist','Ethics decision chart','What can I do here?'];
+const chips=['translate good morning to Spanish','Enable offline translator','Translate a term','Pre-assignment checklist','Ethics decision chart','What can I do here?'];
 const hello='Hi! I’m the Hub Assistant. I can look up glossary terms, point you to a section, or explain what’s available. I’m a simple built-in helper, not a live AI, and I can’t give legal, medical or certification advice.';
 
 const root=document.createElement('div');root.className='asst';
@@ -59,12 +54,18 @@ const hits=findTerms(stripped);
 if(hits.length&&stripped.split(/\s+/).length<=6){
 const list=hits.slice(0,5).map(g=>`<strong>${esc(g.en)}</strong> (${esc(g.domain)})<br>ES: ${esc(g.es||'—')} · VI: ${esc(g.vi||'—')} · FR: ${esc(g.fr||'—')}`).join('<br><br>');
 say(list+'<br><br><small>Study aid only. Confirm with certified references and context.</small>'+link(['index.html#glossary','Open glossary']),'bot');return}
+if(/^(enable|turn on|use).*offline/.test(lc)){HubTranslator.setOptIn(true);say('Offline translator is <strong>on</strong>. The first translation for each language pair downloads about 75 MB (then it is cached), and after that the text stays in your browser. Say “disable offline translator” to turn it off.','bot');return}
+if(/^(disable|turn off|stop).*offline/.test(lc)){HubTranslator.setOptIn(false);say('Offline translator is <strong>off</strong>. Already-downloaded models stay in your browser cache.','bot');return}
 const tr=parseTranslate(q.replace(/[.!?]+$/,''));
 if(tr){
  if(tr.text.length>200){say('Please keep translations under 200 characters.','bot');return}
  if(tr.from===tr.to){say('Pick two different languages.','bot');return}
  const wait=document.createElement('div');wait.className='asst-msg bot';wait.textContent='Translating…';log.appendChild(wait);log.scrollTop=log.scrollHeight;
- translate(tr.text,tr.from,tr.to).then(r=>{wait.innerHTML='<strong>'+esc(r.text)+'</strong><br><small>Via '+esc(r.via)+'. Machine translation is a quick aid, not a certified translation. Never enter confidential client information.</small>'}).catch(()=>{wait.textContent='Sorry, translation is unavailable right now. Try the glossary instead.'});
+ const status=m=>{wait.textContent=m;log.scrollTop=log.scrollHeight};
+ HubTranslator.translate(tr.text,tr.from,tr.to,status).then(r=>{
+  const hint=(r.engine==='mymemory'&&!HubTranslator.isOptedIn()&&HubTranslator.supportsOpus(tr.from,tr.to))?' <br><small>Tip: say “enable offline translator” to keep text on your device next time.</small>':'';
+  wait.innerHTML='<strong>'+esc(r.text)+'</strong><br><small>Via '+esc(r.label)+(r.sent?' — your text was sent to it':'')+'. Machine translation is a quick aid, not a certified translation. Never enter confidential client information.</small>'+hint;
+ }).catch(()=>{wait.textContent='Sorry, translation is unavailable right now. Try the glossary instead.'});
  return}
 let best=null,score=0;topics.forEach(tp=>{const s=tp.k.filter(k=>lc.includes(k)).length;if(s>score){score=s;best=tp}});
 if(best){say(esc(best.a)+link(best.l),'bot');return}
