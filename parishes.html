@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Draft French immersion proposals for any of Louisiana's 64 parishes, with honest status flags and a verification checklist.">
+<title>Parish proposals | Louisiana Interpreters Hub</title>
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header><div class="wrap header-inner"><a href="index.html" class="brand" aria-label="Louisiana Interpreters Hub home"><img class="brand-logo" src="assets/img/louisiana-interpreters-hub-banner.png" alt="Louisiana Interpreters Hub" width="2170" height="725"></a><button class="menu" aria-expanded="false" aria-controls="navigation">Menu ☰</button><nav id="navigation" aria-label="Main navigation"><a href="index.html#library">Study library</a><a href="index.html#glossary">Glossary</a><a href="ethics.html">Ethics</a><a href="workflow.html">Assignment guide</a><a href="french-immersion.html">French immersion</a><a href="parishes.html">Parish proposals</a><a href="index.html#contact" class="nav-cta">Contact ↗</a></nav></div></header>
+<main id="main">
+<div class="page-hero"><div class="wrap"><a class="crumb" href="french-immersion.html">← Back to the research brief</a><div class="eyebrow" style="margin-top:14px">Proposal toolkit</div><h1>French immersion proposals for all 64 parishes.</h1><p>Pick a parish, add what you know locally, and get a structured draft. Anything unconfirmed is marked so nothing unverified slips through.</p></div></div>
+<div class="wrap">
+
+<section aria-labelledby="h-title"><div class="section-head"><div><span class="section-label">How it works</span><h2 id="h-title">From parish to draft</h2></div></div>
+<figure class="chart" style="margin-left:0;margin-right:0"><pre class="mermaid" aria-label="Flowchart of the proposal drafting steps">
+flowchart LR
+A["Pick a parish"] --> B["Check its status flag"]
+B --> C["Add local facts and numbers"]
+C --> D["Generate the draft"]
+D --> E{"Any TO VERIFY items?"}
+E -- Yes --> F["Confirm with CODOFIL and the district"]
+F --> D
+E -- No --> G["Share with district and partners"]
+</pre></figure>
+<details class="chart-alt"><summary>Text version of this chart</summary><ol><li>Pick a parish and check its status flag.</li><li>Add local facts and numbers.</li><li>Generate the draft.</li><li>If any [TO VERIFY] items remain, confirm them with CODOFIL and the district, then regenerate.</li><li>When none remain, share the draft with the district and partners.</li></ol></details>
+<div class="prose"><p class="notice"><strong>What the status flags mean.</strong> I could not get an authoritative school-by-parish list: CODOFIL’s map did not expose its data. So only 8 parishes carry a status: <span class="badge ok">Confirmed</span> where I read a source, <span class="badge rep">Reported</span> where a search summary said so. The other 56 show <span class="badge unk">Unknown</span>, which means “not confirmed,” <em>not</em> “has no program.” CODOFIL says programs exist in 14 parishes, so some Unknown parishes do have one.</p></div></section>
+
+<section aria-labelledby="t-title"><div class="section-head"><div><span class="section-label">All 64</span><h2 id="t-title">Parish status</h2></div><button class="button dark" id="dl-all" type="button">Download all 64 drafts (Markdown)</button></div>
+<div class="gloss-tools"><label class="search"><span aria-hidden="true">⌕</span><input id="p-search" type="search" aria-label="Search parishes" placeholder="Search parishes…"></label><select id="p-status" aria-label="Filter by status"><option value="all">All statuses</option><option value="read">Confirmed</option><option value="reported">Reported</option><option value="unknown">Unknown</option></select></div>
+<div class="table-scroll"><table class="tbl"><caption class="sr-only">Louisiana parishes and French immersion status</caption><thead><tr><th scope="col">Parish</th><th scope="col">Status</th><th scope="col">What we know</th><th scope="col"><span class="sr-only">Action</span></th></tr></thead><tbody id="p-body"></tbody></table></div>
+<p class="notice" id="p-count" role="status"></p></section>
+
+<section id="generator" aria-labelledby="g-title"><div class="section-head"><div><span class="section-label">Generator</span><h2 id="g-title">Draft a proposal</h2><p>Blank fields become [TO VERIFY] markers. Nothing is sent anywhere; this runs in your browser.</p></div></div>
+<form class="contact-form" id="g-form" onsubmit="return false">
+<label class="full">Parish<select id="g-parish" name="parish"></select></label>
+<label>Target school(s)<input name="school" placeholder="e.g. a named elementary school"></label>
+<label>Grades<input name="grades" value="K-2"></label>
+<label>First-year cohort (students)<input name="cohort" inputmode="numeric"></label>
+<label>Program model<input name="model" placeholder="e.g. share of the day taught in French"></label>
+<label>Teachers needed<input name="teachers" inputmode="numeric"></label>
+<label>Language variety<select name="variety"><option>a blend of standard French and Louisiana French</option><option>standard French</option><option>Louisiana French as the primary variety</option></select></label>
+<label>Cost per teacher ($)<input name="costTeacher" inputmode="decimal"></label>
+<label>Materials ($)<input name="costMaterials" inputmode="decimal"></label>
+<label>Professional development ($)<input name="costPD" inputmode="decimal"></label>
+<label>Recruitment and visa support ($)<input name="costRecruit" inputmode="decimal"></label>
+<fieldset class="full opts"><legend>Staffing routes</legend>
+<label><input type="checkbox" name="route" value="CODOFIL international associate teachers" checked> CODOFIL international associate teachers</label>
+<label><input type="checkbox" name="route" value="Escadrille Louisiane certification"> Escadrille Louisiane certification</label>
+<label><input type="checkbox" name="route" value="Local hires and heritage speakers"> Local hires and heritage speakers</label></fieldset>
+<fieldset class="full opts"><legend>Funding sources</legend>
+<label><input type="checkbox" name="funding" value="District general fund" checked> District general fund</label>
+<label><input type="checkbox" name="funding" value="State support"> State support</label>
+<label><input type="checkbox" name="funding" value="Grants"> Grants</label>
+<label><input type="checkbox" name="funding" value="Philanthropy and community partners"> Philanthropy and community partners</label></fieldset>
+<fieldset class="full opts"><legend>Partners</legend>
+<label><input type="checkbox" name="partners" value="CODOFIL" checked> CODOFIL</label>
+<label><input type="checkbox" name="partners" value="a local university"> A local university</label>
+<label><input type="checkbox" name="partners" value="community and cultural organizations"> Community and cultural organizations</label></fieldset>
+<div class="row-actions full"><button class="button dark" id="g-make" type="button">Generate draft</button><button class="button ghost" id="g-copy" type="button">Copy</button><button class="button ghost" id="g-dl" type="button">Download .md</button></div>
+</form>
+<label class="out-label" for="g-out">Draft (Markdown)</label>
+<textarea id="g-out" class="draft" readonly rows="22" placeholder="Your draft appears here."></textarea>
+<p class="notice" id="g-status" role="status">A starting point only. Verify every [TO VERIFY] item with CODOFIL and the district before sharing.</p>
+</section>
+
+</div></main>
+<footer><div class="wrap footer-inner"><span>© <span id="year">2026</span> Louisiana Interpreters Hub</span><span>Supporting the people who make understanding possible.</span></div></footer>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/parishes.js"></script>
+<script src="assets/js/app.js" defer></script>
+<script src="assets/js/parishes-ui.js" defer></script>
+<script src="assets/js/translator.js" defer></script>
+<script src="assets/js/assistant.js" defer></script>
+<script type="module" src="assets/js/charts.js"></script>
+</body>
+</html>

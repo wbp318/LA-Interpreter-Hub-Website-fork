@@ -13,6 +13,7 @@ This website is currently under development.
 - **Ethics & standards** (`ethics.html`) – core principles plus Mermaid decision and role charts
 - **Assignment guide** (`workflow.html`) – lifecycle and turn-taking charts, printable pre-assignment checklist
 - **French immersion brief** (`french-immersion.html`) – sourced research brief on Louisiana public-school French immersion, with Mermaid charts and per-figure confidence badges
+- **Parish proposals** (`parishes.html`) – status table for all 64 parishes and a proposal generator (per parish or all 64 as Markdown); unverified items are marked `[TO VERIFY]`
 - **Community** – discussion board preview (sample content only)
 - **News & events** – placeholder layout (nothing scheduled or published yet)
 - **Contact form** – not connected to an inbox yet; set `contactEmail` in `assets/js/data.js` to enable it
@@ -30,6 +31,7 @@ H --> F["Contact form"]
 H --> ET["ethics.html<br/>Ethics & standards"]
 H --> W["workflow.html<br/>Assignment guide"]
 H --> FI["french-immersion.html<br/>Research brief"]
+FI --> PP["parishes.html<br/>64-parish proposal toolkit"]
 ET --> M1["Decision flowchart<br/>Role diagram"]
 W --> M2["Lifecycle chart<br/>Turn-taking diagram<br/>Printable checklist"]
 A["assistant.js<br/>Hub Assistant"] -.-> H
@@ -42,7 +44,7 @@ A -.-> FI
 
 ```
 index.html, ethics.html, workflow.html,
-french-immersion.html                    pages
+french-immersion.html, parishes.html    pages
 assets/css/styles.css                    shared styles
 assets/js/                               data, app, assistant, translator, charts
 assets/img/                              banner image
@@ -57,7 +59,7 @@ flowchart LR
 D["assets/js/data.js<br/>glossary + settings"] --> APP["app.js<br/>menu, filters, glossary, forms"]
 D --> AS["assistant.js<br/>lookups + chat UI"]
 AS --> TR["translator.js<br/>client-side router"]
-CH["charts.js<br/>Mermaid via CDN"] --> P["ethics.html<br/>workflow.html<br/>french-immersion.html"]
+CH["charts.js<br/>Mermaid via CDN"] --> P["ethics.html<br/>workflow.html<br/>french-immersion.html<br/>parishes.html"]
 ST["assets/css/styles.css"] --> ALL["All pages"]
 ```
 

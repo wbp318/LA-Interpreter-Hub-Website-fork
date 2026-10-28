@@ -7,6 +7,7 @@ const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 
 const topics=[
 {k:['immersion','cajun','louisiana french','codofil','french school','bilingual school'],a:'The French immersion brief summarizes Louisiana’s public-school immersion programs: scale, teacher pipeline, funding, language variety, and expansion levers.',l:['french-immersion.html','Open the French immersion brief']},
+{k:['parish proposal','proposal','64 parishes','my parish','draft a proposal'],a:'The Parish proposals toolkit drafts a French immersion proposal for any of Louisiana’s 64 parishes and marks every unverified item.',l:['parishes.html','Open Parish proposals']},
 {k:['ethic','confiden','impartial','boundary','conflict','code of','decision'],a:'The Ethics & standards page covers confidentiality, accuracy, impartiality and role boundaries, with a decision flowchart for tricky moments.',l:['ethics.html','Open Ethics & standards']},
 {k:['prepare','preparation','checklist','assignment','before','debrief','workflow','lifecycle'],a:'The Assignment guide has a lifecycle chart, a turn-taking diagram, and a printable pre-assignment checklist.',l:['workflow.html','Open Assignment guide']},
 {k:['glossary','terminology','term','vocabulary','csv','download'],a:'The Quick glossary has English, Spanish and Vietnamese terms by setting. You can download it as a CSV there too. Try asking me: “translate allergy”, or “translate good morning to Spanish”.',l:['index.html#glossary','Go to glossary']},
