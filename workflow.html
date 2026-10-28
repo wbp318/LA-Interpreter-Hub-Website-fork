@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A lifecycle chart, turn-taking diagram, and printable pre-assignment checklist for interpreters.">
+<title>Assignment guide | Louisiana Interpreters Hub</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header><div class="wrap header-inner"><a href="index.html" class="brand" aria-label="Louisiana Interpreters Hub home"><img class="brand-logo" src="Louisiana%20Interpreters%20Hub%20Banner.png" alt="Louisiana Interpreters Hub" width="2170" height="725"></a><button class="menu" aria-expanded="false" aria-controls="navigation">Menu ☰</button><nav id="navigation" aria-label="Main navigation"><a href="index.html#library">Study library</a><a href="index.html#glossary">Glossary</a><a href="ethics.html">Ethics</a><a href="workflow.html">Assignment guide</a><a href="index.html#community">Community</a><a href="index.html#contact" class="nav-cta">Contact ↗</a></nav></div></header>
+<main id="main">
+<div class="page-hero"><div class="wrap"><a class="crumb" href="index.html">← Back to home</a><div class="eyebrow" style="margin-top:14px">Assignment guide</div><h1>Before, during, and after.</h1><p>Map out an assignment from request to reflection, then print a checklist for your next one.</p></div></div>
+<div class="wrap">
+<section aria-labelledby="l-title"><div class="section-head"><div><span class="section-label">Lifecycle</span><h2 id="l-title">An assignment from start to finish</h2></div></div>
+<figure class="chart" style="margin-left:0;margin-right:0"><pre class="mermaid" aria-label="Flowchart of the assignment lifecycle">
+flowchart LR
+A["Request"] --> B["Accept or decline"] --> C["Prepare"] --> D["Interpret"] --> E["Debrief"] --> F["Reflect and update glossary"]
+F -.-> C
+</pre></figure>
+<details class="chart-alt"><summary>Text version of this chart</summary><ol><li>Request</li><li>Accept or decline</li><li>Prepare</li><li>Interpret</li><li>Debrief</li><li>Reflect and update your glossary, which feeds back into preparation next time</li></ol></details></section>
+<section aria-labelledby="s-title"><div class="section-head"><div><span class="section-label">Consecutive mode</span><h2 id="s-title">How a turn-taking exchange flows</h2></div></div>
+<figure class="chart" style="margin-left:0;margin-right:0"><pre class="mermaid" aria-label="Sequence diagram of consecutive interpreting turns">
+sequenceDiagram
+participant P as Service provider
+participant I as Interpreter
+participant C as Limited-language speaker
+P->>I: Speaks a short segment
+I->>C: Renders it in the other language
+C->>I: Responds
+I->>P: Renders the response
+Note over I: Clarify openly if anything is unclear
+</pre></figure>
+<details class="chart-alt"><summary>Text version of this chart</summary><ol><li>The provider speaks a short segment.</li><li>The interpreter renders it for the other speaker.</li><li>The speaker responds.</li><li>The interpreter renders the response for the provider.</li><li>If anything is unclear, the interpreter clarifies openly.</li></ol></details></section>
+<section aria-labelledby="k-title"><div class="section-head"><div><span class="section-label">Printable</span><h2 id="k-title">Pre-assignment checklist</h2><p>Checks are saved in this browser only.</p></div></div>
+<ul class="checklist">
+<li><label><input type="checkbox"> Confirm date, time, location or link, and setting</label></li>
+<li><label><input type="checkbox"> Confirm language, dialect, and mode (consecutive, simultaneous, sight)</label></li>
+<li><label><input type="checkbox"> Check for any conflict of interest</label></li>
+<li><label><input type="checkbox"> Review terminology for the setting and add to your glossary</label></li>
+<li><label><input type="checkbox"> Ask for materials in advance, if appropriate</label></li>
+<li><label><input type="checkbox"> Plan for note-taking supplies and a quiet place to reset</label></li>
+<li><label><input type="checkbox"> Plan your arrival and positioning</label></li>
+<li><label><input type="checkbox"> Schedule a short debrief for afterward</label></li>
+</ul>
+<div class="row-actions"><button class="button dark" id="print-btn" type="button">Print this page</button><button class="button ghost" id="reset-btn" type="button">Clear checks</button></div></section>
+</div></main>
+<footer><div class="wrap footer-inner"><span>© <span id="year">2026</span> Louisiana Interpreters Hub</span><span>Supporting the people who make understanding possible.</span></div></footer>
+<script src="data.js"></script>
+<script src="app.js" defer></script>
+<script src="assistant.js" defer></script>
+<script type="module" src="charts.js"></script>
+</body>
+</html>

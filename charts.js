@@ -1,0 +1,3 @@
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs';
+mermaid.initialize({startOnLoad:false,securityLevel:'strict',theme:'base',themeVariables:{fontFamily:'Arial, Helvetica, sans-serif',primaryColor:'#edf2f6',primaryTextColor:'#142f48',primaryBorderColor:'#244e6a',lineColor:'#627385',secondaryColor:'#f7f1e5',tertiaryColor:'#edf4f1',actorBkg:'#edf2f6',actorBorder:'#244e6a',signalColor:'#142f48'}});
+try{await mermaid.run({querySelector:'.mermaid'})}catch(e){document.querySelectorAll('.mermaid').forEach(n=>{if(!n.querySelector('svg'))n.textContent='The chart could not be displayed. See the text version below.'})}
