@@ -7,7 +7,7 @@ This website is currently under development.
 ## Pages and sections
 
 - **Study library** (`index.html`) – searchable, filterable resource categories
-- **Quick glossary** – English / Spanish / Vietnamese starter terms, filterable by setting, with CSV download
+- **Quick glossary** – English / Spanish / Vietnamese / French starter terms, filterable by setting, with CSV download
 - **Ethics & standards** (`ethics.html`) – core principles plus Mermaid decision and role charts
 - **Assignment guide** (`workflow.html`) – lifecycle and turn-taking charts, printable pre-assignment checklist
 - **Community** – discussion board preview (sample content only)

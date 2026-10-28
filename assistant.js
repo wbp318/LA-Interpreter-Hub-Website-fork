@@ -47,7 +47,7 @@ function say(html,who){const m=document.createElement('div');m.className='asst-m
 const link=l=>l?` <a href="${u(l[0])}">${esc(l[1])} →</a>`:'';
 chips.forEach(c=>{const b=document.createElement('button');b.type='button';b.textContent=c;b.addEventListener('click',()=>ask(c));chipBox.appendChild(b)});
 
-function findTerms(q){const t=q.toLowerCase();return D.glossary.filter(g=>[g.en,g.es,g.vi].some(x=>x&&(t.includes(x.toLowerCase())||(t.length>=3&&x.toLowerCase().includes(t)))))}
+function findTerms(q){const t=q.toLowerCase();return D.glossary.filter(g=>[g.en,g.es,g.vi,g.fr].some(x=>x&&(t.includes(x.toLowerCase())||(t.length>=3&&x.toLowerCase().includes(t)))))}
 function ask(raw){
 const q=raw.trim();if(!q)return;say(esc(q),'me');
 const stripped=q.replace(/^(translate|what is|what's|define|meaning of|how do you say)\s+/i,'').replace(/[?.!]+$/,'').trim();
@@ -57,7 +57,7 @@ if(/translate a term|look ?up/.test(lc)&&stripped.length<18&&/term/.test(lc)){sa
 if(/what can i do|help|what.*(here|offer)/.test(lc)){say('Here you can: <br>• study topics in the library<br>• look up and download glossary terms<br>• walk through an ethics decision chart<br>• print a pre-assignment checklist<br>Ask about any of these.'+link(['index.html#library','Browse the library']),'bot');return}
 const hits=findTerms(stripped);
 if(hits.length&&stripped.split(/\s+/).length<=6){
-const list=hits.slice(0,5).map(g=>`<strong>${esc(g.en)}</strong> (${esc(g.domain)})<br>ES: ${esc(g.es||'—')} · VI: ${esc(g.vi||'—')}`).join('<br><br>');
+const list=hits.slice(0,5).map(g=>`<strong>${esc(g.en)}</strong> (${esc(g.domain)})<br>ES: ${esc(g.es||'—')} · VI: ${esc(g.vi||'—')} · FR: ${esc(g.fr||'—')}`).join('<br><br>');
 say(list+'<br><br><small>Study aid only. Confirm with certified references and context.</small>'+link(['index.html#glossary','Open glossary']),'bot');return}
 const tr=parseTranslate(q.replace(/[.!?]+$/,''));
 if(tr){
